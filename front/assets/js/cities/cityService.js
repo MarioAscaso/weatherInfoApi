@@ -1,4 +1,4 @@
-const GET_LAT_LON = "http://localhost:8080/api/getLatLon/?";
+const GET_LAT_LON = "http://localhost:8080/api/getLatLon?";
 
 function getCities() {
     return ["Madrid", "Barcelona", "Zaragoza", "Las Palmas", "Lugo"];
@@ -6,5 +6,5 @@ function getCities() {
 
 function getLongitudeLatitude(aCity) {
     const param = "city=" + aCity;
-    get(GET_LAT_LON + param);
+    return get(GET_LAT_LON + param);
 }

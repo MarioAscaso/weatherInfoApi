@@ -16,9 +16,12 @@ document.addEventListener('DOMContentLoaded', () => {
         })
     }
 
-    citiesSelect.addEventListener("change", () => {
+    citiesSelect.addEventListener("change", async() => {
         const selectedCity = citiesSelect.value;
-        getLongitudeLatitude(selectedCity);
+
+        const response = await getLongitudeLatitude(selectedCity);
+
+        console.log("He recibido estas coordenadas:", response);
     })
 
 
