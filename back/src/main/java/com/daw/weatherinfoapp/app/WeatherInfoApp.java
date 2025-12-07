@@ -20,9 +20,6 @@ public class WeatherInfoApp {
 
     public OpenWeatherResponse getWeatherInfo(String aCity) throws IOException {
         GeoApifyResponse geoResponse = geoApifyService.geocoding(aCity);
-
-        double temp = openWeatherService.getWeather(geoResponse.getLat(), geoResponse.getLon());
-
-        return new OpenWeatherResponse(geoResponse.getLat(), geoResponse.getLon(), temp);
+        return openWeatherService.getWeather(geoResponse.getLat(), geoResponse.getLon());
     }
 }

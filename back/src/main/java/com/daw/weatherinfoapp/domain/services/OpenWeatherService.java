@@ -1,5 +1,6 @@
 package com.daw.weatherinfoapp.domain.services;
 
+import com.daw.weatherinfoapp.domain.api.response.OpenWeatherResponse;
 import com.daw.weatherinfoapp.shared.api.ApiService;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -19,7 +20,7 @@ public class OpenWeatherService {
     @Autowired
     private ApiService apiService;
 
-    public double getWeather(double lat, double lon) throws IOException {
+    public OpenWeatherResponse getWeather(double lat, double lon) throws IOException {
         String url = weatherEndpoint
                 .replace("<lat>", String.valueOf(lat))
                 .replace("<lon>", String.valueOf(lon));
@@ -33,9 +34,15 @@ public class OpenWeatherService {
         JsonNode rootNode = objectMapper.readTree(responseBody.string());
 
         if (rootNode.has("main") && rootNode.path("main").has("temp")) {
-            return rootNode.path("main").path("temp").asDouble();
+            double temp = rootNode.path("main").path("temp").asDouble();
+
+            String icon = "";
+            if (rootNode.has("weather") && rootNode.path("weather").isArray()) {
+                icon = rootNode.path("weather").get(0).path("icon").asText();
+            }
+            return new OpenWeatherResponse(lat, lon, temp, icon);
         } else {
-            throw new IOException("No se ha encontrado la temperatura en la respuesta de OpenWeather");
+            throw new IOException("No se ha encontrado la temperatura en la respuesta");
         }
     }
 }
