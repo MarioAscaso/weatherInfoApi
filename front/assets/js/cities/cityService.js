@@ -8,3 +8,5 @@ function getLongitudeLatitude(aCity) {
     const param = "city=" + aCity;
     return get(GET_LAT_LON + param);
 }
+
+//set interval...

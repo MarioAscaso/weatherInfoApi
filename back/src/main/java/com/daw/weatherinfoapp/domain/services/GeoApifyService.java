@@ -17,7 +17,6 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class GeoApifyService {
 
-
     @Value("${geoapify.api.geocoding}")
     String geocodingEndpoint;
 
